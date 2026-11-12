@@ -1,0 +1,29 @@
+ESTONIA HEIGHTMAP - UNREAL IMPORT SETTINGS
+Source: Estonian 25 m DTM (EPSG:3301, L-EST97), Maa- ja Ruumiamet
+Credit: "Elevation data: Republic of Estonia Land and Spatial Development Board"
+
+FILES
+  estonia_heightmap_50m_7621x5335.png   - 50 m per pixel (detailed)
+  estonia_heightmap_100m_3811x2668.png  - 100 m per pixel (lighter, good for a country-wide radar view)
+  Both 16-bit grayscale, same area: 381 x 267 km.
+
+HEIGHT ENCODING
+  0 (black) = -20 m, 65535 (white) = +320 m
+  Sea filled with -3 m. Lakes Peipsi (29.9 m) and Vortsjarv (33 m) are flat water surfaces.
+
+IMPORT (Landscape mode > Manage > Import from File)
+                     50 m file    100 m file
+  Scale X / Y        5000         10000
+  Scale Z (real)     66.40625     66.40625
+  Scale Z (10x)      664.0625     664.0625    <- recommended, Estonia is very flat
+
+  Location: to put sea level (0 m) at world Z = 0,
+  set the Landscape actor Z = 15000 x exaggeration (cm), e.g. 150000 for 10x.
+  Keep X and Y at 0.
+
+GEOREFERENCE (for placing radar data)
+  Top-left pixel corner = Easting 365000, Northing 6635000 (EPSG:3301)
+  With the landscape at X=0, Y=0:
+    Unreal X (cm) = (Easting  - 365000)  * 100
+    Unreal Y (cm) = (6635000 - Northing) * 100
+  Reproject radar data (lat/lon) to EPSG:3301 first, then apply the formula.
